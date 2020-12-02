@@ -19,6 +19,15 @@ function App() {
     ]
   );
 
+  const [showPersons, setShowPersons] = useState(false)
+
+  const togglePerson = () => {
+    const show = showPersons;
+    setShowPersons(!show);
+    // alert(show);
+    // alert(showPersons);
+  };
+
   const switchName = (newName) => {
     // alert('Clicked!! ', newName);
     setPersons([
@@ -40,20 +49,31 @@ function App() {
   return (
     <div className="App">
       <h1>HI Start!</h1>
-      <button style={style} >Switch Name</button>
-      <Person 
-        name={ persons[0].name } 
-        age={persons[0].age} 
-        />
-      <Person 
-        name={ persons[1].name } 
-        age={persons[1].age} 
-        click={switchName.bind(this, 'Bal')}
-        changed={nameChange}
-        />
-      <Person 
-        name={ persons[2].name } 
-        age={persons[2].age} />
+      <button 
+        style={style} 
+        onClick={togglePerson}
+      >
+        Toggle person
+      </button>
+      {showPersons ? 
+        <div>
+        <Person 
+          name={ persons[0].name } 
+          age={persons[0].age} 
+          />
+        <Person 
+          name={ persons[1].name } 
+          age={persons[1].age} 
+          click={switchName.bind(this, 'Bal')}
+          changed={nameChange}
+          />
+        <Person 
+          name={ persons[2].name } 
+          age={persons[2].age} />
+      </div>
+        : null }
+      
+      
     </div>
   );
 }

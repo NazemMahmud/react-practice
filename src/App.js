@@ -4,6 +4,13 @@ import Person from './Person/Person';
 
 
 function App() {
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer',
+  }
   const [persons, setPersons] = useState(
     [
       { name: "Max", age:"12" }, 
@@ -33,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <h1>HI Start!</h1>
-      {/* <button onClick={switchName('Sad')} >Switch Name</button> */}
+      <button style={style} >Switch Name</button>
       <Person 
         name={ persons[0].name } 
         age={persons[0].age} 

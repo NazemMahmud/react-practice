@@ -6,6 +6,7 @@ function Person(props) {
         <div className="Person" >
             <p onClick={props.click}> <b>Name: </b> {props.name} </p>
             <p> <b>Age: </b> {props.age} </p>
+            <p> Here {props.children} </p>
             <input type="text" onChange={props.changed} value={props.name} />
         </div>
     ) ;    

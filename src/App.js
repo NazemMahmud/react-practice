@@ -11,6 +11,8 @@ function App() {
     padding: '8px',
     cursor: 'pointer',
   }
+  // All state variables
+  // State 1
   const [persons, setPersons] = useState(
     [
       { name: "Max", age:"12" }, 
@@ -19,15 +21,10 @@ function App() {
     ]
   );
 
+  // State 2
   const [showPersons, setShowPersons] = useState(false)
-
-  const togglePerson = () => {
-    const show = showPersons;
-    setShowPersons(!show);
-    // alert(show);
-    // alert(showPersons);
-  };
-
+  
+  // change value of State 1
   const switchName = (newName) => {
     // alert('Clicked!! ', newName);
     setPersons([
@@ -36,7 +33,7 @@ function App() {
       { name: "John Mark", age:"34" }, 
     ]);
   }
-
+// change value of State 1: two way binding
   const nameChange = (event) => {
     // alert('Clicked!! ', newName);
     setPersons([
@@ -45,6 +42,48 @@ function App() {
       { name: "John Mark", age:"34" }, 
     ]);
   }
+
+
+ // using IF condition: Show hide section
+  const togglePerson = () => {
+    const show = showPersons;
+    setShowPersons(!show); //
+  };
+
+  // Use of state with list dynamically: delete action: 
+  const deletePerson = (personIndex) => {
+    const allpersons = [...persons];
+    allpersons.splice(personIndex, 1);
+    setPersons(allpersons);
+    console.log(allpersons);
+  }
+
+  let allPersons = null;
+  /**
+   * if i call a method like this: click={() => deletePerson(index)}
+   * no need to bind like following: 
+   * click={switchName.bind(this, 'Bal')}
+   */
+  if(showPersons) {
+    allPersons = (
+      <div>
+          { persons.map( (person, index) => {
+            return <Person 
+                  click={() => deletePerson(index)}
+                  name={ person.name } 
+                  age={person.age} />
+          }) }
+        
+        {/* <Person 
+          name={ persons[1].name } 
+          age={persons[1].age} 
+          click={switchName.bind(this, 'Bal')}
+          changed={nameChange}
+          /> */}
+      </div>
+    );
+  }
+
 
   return (
     <div className="App">
@@ -55,25 +94,7 @@ function App() {
       >
         Toggle person
       </button>
-      {showPersons ? 
-        <div>
-        <Person 
-          name={ persons[0].name } 
-          age={persons[0].age} 
-          />
-        <Person 
-          name={ persons[1].name } 
-          age={persons[1].age} 
-          click={switchName.bind(this, 'Bal')}
-          changed={nameChange}
-          />
-        <Person 
-          name={ persons[2].name } 
-          age={persons[2].age} />
-      </div>
-        : null }
-      
-      
+      {allPersons }
     </div>
   );
 }

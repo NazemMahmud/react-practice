@@ -21,6 +21,15 @@ function App() {
     ]);
   }
 
+  const nameChange = (event) => {
+    // alert('Clicked!! ', newName);
+    setPersons([
+      { name: 'Damn', age:"17" }, 
+      { name: event.target.value, age:"32" }, 
+      { name: "John Mark", age:"34" }, 
+    ]);
+  }
+
   return (
     <div className="App">
       <h1>HI Start!</h1>
@@ -33,6 +42,7 @@ function App() {
         name={ persons[1].name } 
         age={persons[1].age} 
         click={switchName.bind(this, 'Bal')}
+        changed={nameChange}
         />
       <Person 
         name={ persons[2].name } 

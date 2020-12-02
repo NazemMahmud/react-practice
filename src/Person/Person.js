@@ -2,9 +2,10 @@ import React from 'react';
 
 function Person(props) {
     return (
-        <div onClick={props.click}>
-            <p> <b>Name: </b> {props.name} </p>
+        <div >
+            <p onClick={props.click}> <b>Name: </b> {props.name} </p>
             <p> <b>Age: </b> {props.age} </p>
+            <input type="text" onChange={props.changed} value={props.name} />
         </div>
     ) ;    
 }

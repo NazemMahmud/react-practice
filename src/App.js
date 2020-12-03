@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import './App.css';
 import Person from './Person/Person';
-
+import Radium, { StyleRoot } from 'radium';
 
 function App() {
   const style = {
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     font: 'inherit',
     border: '1px solid blue',
     padding: '8px',
     cursor: 'pointer',
+    ':hover': {
+      backgroundColor: 'lightgreen',
+      color: 'black'
+    }
   }
   // All state variables
   // State 1
@@ -78,21 +82,25 @@ function App() {
                   changed={(event) => nameChange(event, person.id)}
                   />
           }) }
-        
-        {/* <Person 
-          name={ persons[1].name } 
-          age={persons[1].age} 
-          click={switchName.bind(this, 'Bal')}
-          changed={nameChange}
-          /> */}
       </div>
     );
+
+    style.backgroundColor = 'green';
+    style[':hover'] = {
+      backgroundColor: 'lightgreen',
+      color: 'black'
+    };
   }
 
+  const classes = [];
+
+  if(persons.length <=2) classes.push('red');
+  if(persons.length <=1) classes.push('bold');
 
   return (
-    <div className="App">
-      <h1>HI Start!</h1>
+    <StyleRoot>
+      <div className="App">
+      <p className={classes.join(' ')} >HI Start!</p>
       <button 
         style={style} 
         onClick={togglePerson}
@@ -101,7 +109,8 @@ function App() {
       </button>
       {allPersons }
     </div>
+    </StyleRoot>
   );
 }
 
-export default App;
+export default Radium(App) ;

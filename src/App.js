@@ -36,9 +36,7 @@ function App() {
 // change value of State 1: two way binding
   const nameChange = (event, id) => {
     const personIndex = persons.findIndex( p => p.id === id);
-    const person = {
-      ...persons[personIndex]
-    };
+    const person = {  ...persons[personIndex] };
     // another approach
     // const person = Object.assign({}, persons[personIndex]);
     person.name = event.target.value;
@@ -51,7 +49,7 @@ function App() {
  // using IF condition: Show hide section
   const togglePerson = () => {
     const show = showPersons;
-    setShowPersons(!show); //
+    setShowPersons(!show); 
   };
 
   // Use of state with list dynamically: delete action: 

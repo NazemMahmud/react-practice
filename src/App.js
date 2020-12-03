@@ -15,9 +15,9 @@ function App() {
   // State 1
   const [persons, setPersons] = useState(
     [
-      { name: "Max", age:"12" }, 
-      { name: "Jack", age:"24" }, 
-      { name: "John", age:"30" }, 
+      { id: 'asadsa1', name: "Max", age:"12" }, 
+      { id: 'asadsa2', name: "Jack", age:"24" }, 
+      { id: 'asadsa3', name: "John", age:"30" }, 
     ]
   );
 
@@ -28,19 +28,23 @@ function App() {
   const switchName = (newName) => {
     // alert('Clicked!! ', newName);
     setPersons([
-      { name: newName, age:"17" }, 
-      { name: "Jack Ryan", age:"26" }, 
-      { name: "John Mark", age:"34" }, 
+      { id: 'asadsa1', name: newName, age:"17" }, 
+      { id: 'asadsa2', name: "Jack Ryan", age:"26" }, 
+      { id: 'asadsa3', name: "John Mark", age:"34" }, 
     ]);
   }
 // change value of State 1: two way binding
-  const nameChange = (event) => {
-    // alert('Clicked!! ', newName);
-    setPersons([
-      { name: 'Damn', age:"17" }, 
-      { name: event.target.value, age:"32" }, 
-      { name: "John Mark", age:"34" }, 
-    ]);
+  const nameChange = (event, id) => {
+    const personIndex = persons.findIndex( p => p.id === id);
+    const person = {
+      ...persons[personIndex]
+    };
+    // another approach
+    // const person = Object.assign({}, persons[personIndex]);
+    person.name = event.target.value;
+    const allpersons = [...persons];
+    allpersons[personIndex] = person;
+    setPersons(allpersons);
   }
 
 
@@ -71,7 +75,10 @@ function App() {
             return <Person 
                   click={() => deletePerson(index)}
                   name={ person.name } 
-                  age={person.age} />
+                  age={person.age} 
+                  key={person.id}
+                  changed={(event) => nameChange(event, person.id)}
+                  />
           }) }
         
         {/* <Person 

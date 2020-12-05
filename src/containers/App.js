@@ -1,20 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
-import Person from './Person/Person';
+import Cockpit from '../components/Cockpit/Cockpit';
+import Persons from '../components/Persons/Persons';
 import Radium, { StyleRoot } from 'radium';
 
 function App() {
-  const style = {
-    backgroundColor: 'red',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer',
-    ':hover': {
-      backgroundColor: 'lightgreen',
-      color: 'black'
-    }
-  }
   // All state variables
   // State 1
   const [persons, setPersons] = useState(
@@ -71,44 +61,24 @@ function App() {
    * click={switchName.bind(this, 'Bal')}
    */
   if(showPersons) {
-    allPersons = (
-      <div>
-          { persons.map( (person, index) => {
-            return <Person 
-                  click={() => deletePerson(index)}
-                  name={ person.name } 
-                  age={person.age} 
-                  key={person.id}
-                  changed={(event) => nameChange(event, person.id)}
-                  />
-          }) }
-      </div>
-    );
-
-    style.backgroundColor = 'green';
-    style[':hover'] = {
-      backgroundColor: 'lightgreen',
-      color: 'black'
-    };
+    allPersons = <Persons 
+          persons={persons}
+          deletePerson={deletePerson}
+          nameChange={nameChange}
+        />
+      ; 
   }
-
-  const classes = [];
-
-  if(persons.length <=2) classes.push('red');
-  if(persons.length <=1) classes.push('bold');
 
   return (
     <StyleRoot>
       <div className="App">
-      <p className={classes.join(' ')} >HI Start!</p>
-      <button 
-        style={style} 
-        onClick={togglePerson}
-      >
-        Toggle person
-      </button>
-      {allPersons }
-    </div>
+        <Cockpit 
+          showPersons={showPersons}
+          persons={persons}
+          togglePerson={togglePerson}
+        />
+        {allPersons }
+      </div>
     </StyleRoot>
   );
 }

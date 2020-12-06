@@ -33,8 +33,6 @@ class App extends Component {
     const allpersons = [...this.state.persons];
     allpersons.splice(personIndex, 1);
     this.setState({persons: allpersons});
-  
-    console.log(allpersons);
   }
 
   // using IF condition: Show hide section
@@ -45,7 +43,6 @@ class App extends Component {
   
   // change value of State 1
   switchName = (newName) => {
-    // alert('Clicked!! ', newName);
     const person = [
       { id: 'asadsa1', name: newName, age:"17" }, 
       { id: 'asadsa2', name: "Jack Ryan", age:"26" }, 

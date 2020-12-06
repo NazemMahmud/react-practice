@@ -24,5 +24,6 @@ yarn-error.log*
 
 #custom paths
 .idea
+.eslintcache
 /src/UserInput
 /src/UserOutput

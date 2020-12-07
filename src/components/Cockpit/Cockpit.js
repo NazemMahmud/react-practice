@@ -23,8 +23,8 @@ function Cockpit(props){
         };
     }   
 
-    if(props.persons.length <=2) classes.push('red');
-    if(props.persons.length <=1) classes.push('bold');
+    if(props.personLength <=2) classes.push('red');
+    if(props.personLength <=1) classes.push('bold');
 
     return (
        <div>
@@ -40,4 +40,4 @@ function Cockpit(props){
 }
 
 
-  export default Cockpit;
+  export default React.memo(Cockpit);

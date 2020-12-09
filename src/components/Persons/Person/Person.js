@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './Person.css';
 import Radium from 'radium';
+import Auxiliary from '../../../hoc/Auxiliary'; 
 
 function Person(props) {
     const style = {
@@ -9,12 +10,12 @@ function Person(props) {
         }
     };
     return (
-        <div className="Person" style={style} >
+        <Fragment >
             <p onClick={props.click}> <b>Name: </b> {props.name} </p>
             <p> <b>Age: </b> {props.age} </p>
             <p> Here {props.children} </p>
             <input type="text" onChange={props.changed} value={props.name} />
-        </div>
+        </Fragment>
     ) ;    
 }
 

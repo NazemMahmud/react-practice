@@ -13,7 +13,8 @@ class App extends Component {
       { id: 'asadsa3', name: "John", age:"30" },
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    changeCounter: 0
   }
 
   // change value of State 1: two way binding
@@ -25,7 +26,12 @@ class App extends Component {
     person.name = event.target.value;
     const allpersons = [...this.state.persons];
     allpersons[personIndex] = person;
-    this.setState({persons: allpersons});
+    this.setState((prevState, props) => {
+        return {
+          persons: allpersons,
+          changeCounter: prevState.changeCounter+1
+        }
+    });
   }
 
   // Use of state with list dynamically: delete action: 

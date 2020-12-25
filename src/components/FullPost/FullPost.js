@@ -7,16 +7,17 @@ class FullPost extends Component {
         loadedPost: null
     }
 
-    componentDidUpdate(){
-        if(this.props.id){
+    componentDidMount(){
+        console.log('[tp[s: ', this.props);
+        if(this.props.match.params.postId){
             /**
              * PROBLEM 2:
              * After updating state it will again call componentDidUpdate lifecycle hook
              * which will create infinite call and infinite update on same
              * therefore, putting the below condition to stop the infinite call
              */
-            if( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)){
-                axios.get('/posts/' + this.props.id)
+            if( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)){
+                axios.get('/posts/' + this.props.match.params.postId)
                 .then(response => {
                     this.setState({loadedPost: response.data});
                 });
@@ -26,7 +27,7 @@ class FullPost extends Component {
     }
 
     deletePost = () => {
-        axios.delete('/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.match.params.postId)
             .then(response => {
                 console.log(response);
         });
@@ -34,6 +35,7 @@ class FullPost extends Component {
 
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
+        console.log('here');
         /**
          * PROBLEM 1:
          * As react is working asynchronously, when it will check the props.id
@@ -41,7 +43,7 @@ class FullPost extends Component {
          * and before fetching the render will run, There loadedPost will have no data, hence get ERROR
          * that's why there are 2 conditions following.
          */
-        if(this.props.id){
+        if(this.props.match.params.postId){
             post = <p style={{textAlign: 'center'}} >Loading...</p>
         }
         if(this.state.loadedPost){

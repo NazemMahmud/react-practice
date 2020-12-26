@@ -9,14 +9,25 @@ class FullPost extends Component {
 
     componentDidMount(){
         console.log('[tp[s: ', this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate(){
+        console.log('[tp[sss: ', this.props);
+        this.loadData();
+    }
+
+    loadData(){
         if(this.props.match.params.postId){
             /**
              * PROBLEM 2:
              * After updating state it will again call componentDidUpdate lifecycle hook
              * which will create infinite call and infinite update on same
              * therefore, putting the below condition to stop the infinite call
+             * + sign needs for converting string to number
              */
-            if( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)){
+            // if( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.postId)){
+            if( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.postId)){
                 axios.get('/posts/' + this.props.match.params.postId)
                 .then(response => {
                     this.setState({loadedPost: response.data});
@@ -36,6 +47,7 @@ class FullPost extends Component {
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
         console.log('here');
+        console.log('om: ', this.props);
         /**
          * PROBLEM 1:
          * As react is working asynchronously, when it will check the props.id

@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { NavLink, Route, Switch } from "react-router-dom";
 
 import './Blog.css';
 import Posts from "./Posts/Posts";
-// import NewPost from '../../components/NewPost/NewPost';
-import asynchComponent from "../../hoc/asynchComponent";
+// import asynchComponent from "../../hoc/asynchComponent";
 
-const AsynchNewPost = asynchComponent(() => {
-    return import("../../components/NewPost/NewPost");
-})
+const AsynchNewPost = React.lazy(() => import("../../components/NewPost/NewPost")); // only works on default export
 class Blog extends Component {
     render () {
         return (
@@ -36,7 +33,13 @@ class Blog extends Component {
                 <Route path="/" render={() => <h1>Home 2</h1>} /> */}
                 <Switch>
                     <Route path="/posts" component={Posts} />
-                    <Route path="/new-post" component={AsynchNewPost} />
+                    <Route path="/new-post" 
+                        render={() => (
+                            <Suspense fallback={<div>Loading...</div>}>
+                                AsynchNewPost
+                            </Suspense>
+                        )} 
+                    />
                     
                 </Switch>
             </div>
